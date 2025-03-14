@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+
+// Definición de colores como constantes
+const Color backgroundColor = Color.fromARGB(255, 230, 214, 191); // Color de fondo personalizado
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Contador',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 175, 84, 84)),
+      ),
+      home: const MyHomePage(title: 'Mi humilde contador'), // Nuevo título
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+  void _doubleCounter() {
+    setState(() {
+      _counter *= 2;
+    });
+  }
+
+  void _halfCounter() {
+    setState(() {
+      _counter ~/= 2;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true, // Centro el título
+      ),
+      body: Container(
+        color: backgroundColor, // Uso de la constante para el fondo
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('El valor actual del contador es:'),
+              Text(
+                '$_counter', // Texto sin color específico
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 20), // Separación entre el texto y los botones
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FloatingActionButton(
+                    onPressed: _incrementCounter,
+                    tooltip: 'Sumar',
+                    child: const Icon(Icons.add),
+                  ),
+                  const SizedBox(height: 10),
+                  FloatingActionButton(
+                    onPressed: _decrementCounter,
+                    tooltip: 'Restar',
+                    child: const Icon(Icons.remove),
+                  ),
+                  const SizedBox(height: 10),
+                  FloatingActionButton(
+                    onPressed: _doubleCounter,
+                    tooltip: 'Multiplicar',
+                    child: const Icon(Icons.clear),
+                  ),
+                  const SizedBox(height: 10),
+                  FloatingActionButton(
+                    onPressed: _halfCounter,
+                    tooltip: 'Dividir',
+                    child: const Icon(Icons.percent),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
